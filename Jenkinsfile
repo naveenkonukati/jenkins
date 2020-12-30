@@ -33,8 +33,8 @@ pipeline {
 						nexusUrl: '192.168.1.7:8081/nexus',
 						nexusVersion: 'nexus2',
 						protocol: 'http',
-						repository:'snapshots',
-						version: '1.4.0.RELEASE'
+						repository:'releases',
+						 version: "1.4.${BUILD_NUMBER}"
 					}
 					
 				}
