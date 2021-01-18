@@ -28,7 +28,7 @@ pipeline {
 						classifier: '',
 						file: 'spring-boot-samples/spring-boot-sample-atmosphere/target/spring-boot-sample-atmosphere-1.4.0.RELEASE.jar',
 						type: 'spring-boot-samples/spring-boot-sample-atmosphere/target/spring-boot-sample-atmosphere-1.4.0.RELEASE.jar']],
-						credentialsId: 'nexusid',
+						credentialsId: 'nexusidnew',
 						groupId: 'org.springframework.boot',
 						nexusUrl: '3.134.79.254:8081/nexus',
 						nexusVersion: 'nexus2',
