@@ -30,15 +30,36 @@ pipeline {
 						type: 'spring-boot-samples/spring-boot-sample-atmosphere/target/spring-boot-sample-atmosphere-1.4.0.RELEASE.jar']],
 						credentialsId: 'nexusidnew',
 						groupId: 'org.springframework.boot',
-						nexusUrl: '3.134.79.254:8081/nexus',
+						nexusUrl: '18.191.159.211:8081/nexus',
 						nexusVersion: 'nexus2',
 						protocol: 'http',
 						repository:'releases',
 						version: "1.4.${BUILD_NUMBER}"
 					}
-					
-					
 				}
+				stage('Deploy') {
+					input {
+                				message "Should we continue?"
+                				ok "Yes, we should."
+            				}
+					steps {
+						checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+						doGenerateSubmoduleConfigurations: false, 
+                                		extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ansible']],
+						submoduleCfg: [], 
+        					userRemoteConfigs: [[url: 'https://github.com/naveenkonukati/ansible-deploy-tomcat.git']]])
+				
+						withCredentials([string(credentialsId: 'ansi_vault_pass', variable: 'MYPASS')]) {
+							sh '''
+								echo $MYPASS
+								echo $MYPASS > ~/.vault_pass.txt
+								export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt
+								cd ansible
+								sudo ansible-playbook -i production -e "BUILD_NO=${BUILD_NUMBER}" site.yml
+							'''
+						}
+					}
+				}	
 				
 			}
 			post {
