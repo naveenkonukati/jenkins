@@ -47,7 +47,7 @@ pipeline {
 						doGenerateSubmoduleConfigurations: false, 
                                 		extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ansible']],
 						submoduleCfg: [], 
-        					userRemoteConfigs: [[url: 'https://github.com/naveenkonukati/ansible-deploy-tomcat.git']]])
+        					userRemoteConfigs: [[url: 'https://github.com/naveenkonukati/deploy-ansible-tomcat-jenkins.git']]])
 				
 						withCredentials([string(credentialsId: 'ansi_vault_pass', variable: 'MYPASS')]) {
 							sh '''
